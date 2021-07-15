@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:width="http://www.w3.org/1999/xhtml"
+      xmlns:height="http://www.w3.org/1999/xhtml">
+<head>
+    <title>assignment Form</title>
+</head>
+<body>
+
+<form th:action="@{'/assignment/create/'+${lid}}"
+      th:object="${assignment}" method="post"
+      role="form">
+    <h2>assignment Form</h2>
+    <table border="0" cellpadding="10">
+
+
+        <tr>
+            <td><input type="text" th:field="*{name}" placeholder="Name"> <label
+                    th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></label></td>
+        </tr>
+
+        <tr>
+            <td> <input type="text" th:field="*{deadline}" placeholder="deadline"> <label
+                    th:if="${#fields.hasErrors('deadline')}" th:errors="*{deadline}"></label></td>
+        </tr>
+
+        <tr>
+            <td> <input type="text" th:field="*{description}" placeholder="Description"> <label
+                    th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></label></td>
+        </tr>
+
+        <tr>
+            <td><button type="assignment">Register assignment</button></td>
+        </tr>
+    </table>
+
+</form>
+
+
+
+
+</body>
+</html>

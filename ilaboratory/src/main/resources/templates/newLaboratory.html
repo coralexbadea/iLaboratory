@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:width="http://www.w3.org/1999/xhtml"
+      xmlns:height="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Laboratory Form</title>
+</head>
+<body>
+
+<form th:action="@{/newLaboratory}"
+      th:object="${laboratory}" method="post"
+      role="form">
+    <h2>Lab Form</h2>
+    <table border="0" cellpadding="10">
+        <tr>
+            <td><input type="text" th:field="*{ltitle}" placeholder="Title"> <label
+                    th:if="${#fields.hasErrors('ltitle')}" th:errors="*{ltitle}"></label></td>
+        </tr>
+        <tr>
+            <select th:field="*{lno}">
+                <option th:each="state : ${T(com.example.ilaboratory.domain.LabNumber).values()}"
+                        th:value="${state}"
+                        th:text="${state}">
+                </option>
+            </select>
+        </tr>
+        <tr>
+            <td> <input type="text" th:field="*{ldate}" placeholder="Date"> <label
+                    th:if="${#fields.hasErrors('ldate')}" th:errors="*{ldate}"></label></td>
+        </tr>
+        <tr>
+            <td>  <input type="text" th:field="*{lcurricula}" placeholder="Curricula"> <label
+                    th:if="${#fields.hasErrors('lcurricula')}" th:errors="*{lcurricula}"></label></td>
+        </tr>
+
+
+        <tr>
+            <td>  <textarea rows="4" cols="50" th:field="*{ldescription}" placeholder="Description"> </textarea><label
+                    th:if="${#fields.hasErrors('ldescription')}" th:errors="*{ldescription}"></label></td>
+        </tr>
+
+        <tr>
+            <td><button type="submit">Register Laboratory</button></td>
+        </tr>
+    </table>
+
+</form>
+
+
+
+
+</body>
+</html>

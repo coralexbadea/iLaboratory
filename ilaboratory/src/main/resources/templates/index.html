@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Laboratories Information</title>
+</head>
+<body>
+    <div align="center">
+
+
+        <div sec:authorize="isAuthenticated()">
+            Welcome <b><span sec:authentication="name">Username</span></b>
+        </div>
+
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Logout"/>
+        </form>
+
+        <div sec:authorize="hasAnyAuthority('ADMIN')">
+            <a href="/newLaboratory">Add Laboratory</a>
+        </div>
+
+        <div sec:authorize="hasAnyAuthority('ADMIN')">
+            <a href="/student/index">View Students</a>
+        </div>
+
+
+        <table border="1" cellpadding="10">
+            <h2>Laboratory List</h2>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Number</th>
+                    <th>Date</th>
+                    <th>Curricula</th>
+                    <th sec:authorize="hasAnyAuthority('ADMIN', 'STUDENT')">Action</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="lab : ${labs}">
+                    <td th:text="${lab.ltitle}">Title</td>
+                    <td th:text="${lab.lno}">Number</td>
+                    <td th:text="${lab.ldate}">Date</td>
+                    <td th:text="${lab.lcurricula}">Curricula</td>
+
+                    <td sec:authorize="hasAnyAuthority('ADMIN', 'STUDENT')">
+                        <a th:href="@{'/viewLaboratory/'+${lab.lid}}">View Lab</a>
+                    </td>
+
+                    <td sec:authorize="hasAnyAuthority('ADMIN')">
+                        <a th:href="@{'/editLaboratory/'+${lab.lid}}">Edit</a>
+                    </td>
+
+                    <td sec:authorize="hasAnyAuthority('ADMIN')">
+                        <a th:href="@{'/deleteLaboratory/'+${lab.lid}}">Delete</a>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

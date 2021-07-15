@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org",
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>View Laboratory</title>
+</head>
+<body>
+
+<table   th:object="${laboratory}" border="0" cellpadding="10">
+    <tr>
+        <td> <h1><span th:utext="*{ltitle}"></span></h1>
+    </tr>
+    <tr>
+        <td> <span th:utext="*{lno}"> </span>
+    </tr>
+
+    <tr>
+        <td> <span th:utext="*{ldate}"></span>
+    </tr>
+
+    <tr>
+        <td> <span th:utext="*{lcurricula}"></span>
+    </tr>
+
+    <tr>
+        <td> <span th:utext="*{ldescription}"></span>
+    </tr>
+    <tr>
+        <form th:action="@{'/assignment/index/'+ ${laboratory.lid}}" method="get">
+            <button type="Submit">View Assignments</button>
+        </form>
+    </tr>
+
+    <tr sec:authorize="hasAnyAuthority('ADMIN')" >
+        <form th:action="@{'/attendance/index/'+ ${laboratory.lid}}" method="get">
+            <button type="Submit">View Attendances</button>
+        </form>
+    </tr>
+
+
+    <td sec:authorize="hasAnyAuthority('STUDENT')">
+        <a th:href="@{'/attendance/attend/'+ ${laboratory.lid}}">Attend</a>
+    </td>
+
+</table>
+
+</body>
+</html>

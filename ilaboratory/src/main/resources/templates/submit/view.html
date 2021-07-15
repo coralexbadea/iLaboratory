@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>View submit</title>
+</head>
+<body>
+<form th:action="@{'/submit/grade/'+ ${submit.id}}"
+      th:object="${submit}" method="post"
+      role="form">
+    <table  border="0" cellpadding="10">
+        <tr>
+            <td> <h1><span th:utext="*{link}"></span></h1>
+        </tr>
+        <tr>
+            <td> <span th:utext="*{comment}"> </span>
+        </tr>
+
+        <tr>
+
+                <input  th:field="*{grade}" placeholder="Grade">
+                <button type="Submit">Grade Assignment</button>
+
+        </tr>
+
+    </table>
+
+
+
+</form>
+</body>
+</html>

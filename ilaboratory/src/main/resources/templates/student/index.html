@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Students Information</title>
+</head>
+<body>
+    <div align="center">
+
+
+        <div sec:authorize="isAuthenticated()">
+            Welcome <b><span sec:authentication="name">Username</span></b>
+        </div>
+
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Logout"/>
+        </form>
+
+        <div sec:authorize="hasAnyAuthority('ADMIN')">
+            <a href="/student/create">Add Student</a>
+        </div>
+
+
+        <table border="1" cellpadding="10">
+            <h2>List of students</h2>
+            <thead>
+                <tr>
+                    <th>Full name</th>
+                    <th>Email</th>
+                    <th>Group</th>
+                    <th>Address</th>
+                    <th>Hobby</th>
+                    <th>Token</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="student : ${students}">
+                    <td th:text="${student.fullName}">Full name</td>
+                    <td th:text="${student.email}">Email</td>
+                    <td th:text="${student.sGroup.name()}">Group</td>
+                    <td th:text="${student.address}">Address</td>
+                    <td th:text="${student.hobby}">Hobby</td>
+                    <td th:text="${student.token}">Token</td>
+
+                    <td sec:authorize="hasAnyAuthority('ADMIN')">
+                        <a th:href="@{'/student/edit/'+${student.sid}}">Edit</a>
+                    </td>
+
+                    <td sec:authorize="hasAnyAuthority('ADMIN')">
+                        <a th:href="@{'/student/delete/'+${student.sid}}">Delete</a>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

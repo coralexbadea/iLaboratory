@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>submit Information</title>
+</head>
+<body>
+    <div align="center">
+
+
+        <div sec:authorize="isAuthenticated()">
+            Welcome <b><span sec:authentication="name">Username</span></b>
+        </div>
+
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Logout"/>
+        </form>
+
+<!--        <input type="hidden"  th:object="${id}">-->
+        <table border="1" cellpadding="10">
+            <h2>List of submit</h2>
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Grade</th>
+                    <th> </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="submit : ${submits}">
+                    <td th:text="${submit.student!=null}?${submit.student.fullName}:'not specified'">Student Name</td>
+                    <td th:text="${submit.grade!=0}?${submit.grade}:'not specified'">Grade</td>
+
+                    <td sec:authorize="hasAnyAuthority('ADMIN')">
+                        <a th:href="@{'/submit/view/'+${submit.id}}">View</a>
+                    </td>
+
+                    <td sec:authorize="hasAnyAuthority('ADMIN', 'STUDENT')">
+                        <a th:href="@{'/submit/delete/'+ ${id}+ '/'+ ${submit.id}}">Delete</a>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:width="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Edit Performance</title>
+</head>
+<body>
+<div align="center">
+    <h1>Edit Assignment</h1>
+    <br />
+    <form th:action="@{'/assignment/edit/'+${lid}}" th:object="${assignment}"
+          method="post">
+        <table border="0">
+
+
+            <tr>
+                <td> <input type="hidden"  th:field="*{aid}"> <label
+                        th:if="${#fields.hasErrors('aid')}" th:errors="*{aid}"></label>
+            </tr>
+
+            <tr>
+                <td><input type="text" th:field="*{name}" placeholder="Name"> <label
+                        th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></label></td>
+            </tr>
+
+            <tr>
+                <td> <input type="text" th:field="*{deadline}" placeholder="Deadline"> <label
+                        th:if="${#fields.hasErrors('deadline')}" th:errors="*{deadline}"></label></td>
+            </tr>
+            <tr>
+                <td>  <textarea rows="4" cols="50" th:field="*{description}" placeholder="Description"> </textarea><label
+                        th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></label></td>
+            </tr>
+
+
+            <tr>
+                <td colspan="2"><button type="submit">Save</button></td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

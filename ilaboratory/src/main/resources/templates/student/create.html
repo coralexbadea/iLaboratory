@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:width="http://www.w3.org/1999/xhtml"
+      xmlns:height="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Student Form</title>
+</head>
+<body>
+
+<form th:action="@{/student/create}"
+      th:object="${student}" method="post"
+      role="form">
+    <h2>Student Form</h2>
+    <table border="0" cellpadding="10">
+
+
+        <tr>
+            <td><input type="text" th:field="*{fullName}" placeholder="Full Name"> <label
+                    th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></label></td>
+        </tr>
+
+        <tr>
+            <td> <input type="text" th:field="*{email}" placeholder="Email"> <label
+                    th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></label></td>
+        </tr>
+        <tr>
+            <td> <input type="text" th:field="*{address}" placeholder="Address"> <label
+                    th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></label></td>
+        </tr>
+
+        <tr>
+            <select th:field="*{sGroup}">
+                <option th:each="state : ${T(com.example.ilaboratory.domain.GroupNumber).values()}"
+                        th:value="${state}"
+                        th:text="${state}">
+                </option>
+            </select>
+        </tr>
+
+        <tr>
+            <td>  <input type="text" th:field="*{hobby}" placeholder="Hobby"></td>
+        </tr>
+
+        <tr>
+            <td><button type="submit">Register student</button></td>
+        </tr>
+    </table>
+
+</form>
+
+
+
+
+</body>
+</html>

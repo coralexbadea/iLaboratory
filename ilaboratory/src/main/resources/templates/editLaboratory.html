@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:width="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Edit Performance</title>
+</head>
+<body>
+<div align="center">
+    <h1>Edit laboratory</h1>
+    <br />
+    <form th:action="@{/saveEdit}" th:object="${laboratory}"
+          method="post">
+        <table border="0">
+
+            <tr>
+                <td>  <input type="hidden"  th:field="*{lid}" placeholder="ID"> <label
+                    th:if="${#fields.hasErrors('lid')}" th:errors="*{lid}"></label>
+                      </td>
+            </tr>
+
+            <tr>
+                <td> <input type="text" th:field="*{ltitle}" placeholder="Title"> <label
+                        th:if="${#fields.hasErrors('ltitle')}" th:errors="*{ltitle}"></label></td>
+            </tr>
+            <tr>
+                <select th:field="*{lno}">
+                    <option th:each="state : ${T(com.example.ilaboratory.domain.GroupNumber).values()}"
+                            th:value="${state}"
+                            th:text="${state}">
+                    </option>
+                </select>
+            </tr>
+            <tr>
+
+                <td> <input type="text" th:field="*{ldate}" placeholder="Date"> <label
+                        th:if="${#fields.hasErrors('ldate')}" th:errors="*{ldate}"></label></td>
+            </tr>
+            <tr>
+
+                <td>  <input type="text" th:field="*{lcurricula}" placeholder="Curricula"> <label
+                        th:if="${#fields.hasErrors('lcurricula')}" th:errors="*{lcurricula}"></label></td>
+            </tr>
+            <tr>
+                <td>  <input type="text" th:field="*{ldescription}" placeholder="Description"> <label
+                        th:if="${#fields.hasErrors('ldescription')}" th:errors="*{ldescription}"></label></td>
+            </tr>
+
+
+            <tr>
+                <td colspan="2"><button type="submit">Save</button></td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

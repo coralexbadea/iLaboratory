@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>View assignment</title>
+</head>
+<body>
+
+<table   th:object="${assignment}" border="0" cellpadding="10">
+    <tr>
+        <td> <h1><span th:utext="*{name}"></span></h1>
+    </tr>
+    <tr>
+        <td> <span th:utext="*{deadline}"> </span>
+    </tr>
+    <tr>
+        <td> <span th:utext="*{description}"></span>
+    </tr>
+
+
+    <form   sec:authorize="hasAnyAuthority('STUDENT')"
+            th:action="@{'/submit/create/'+ ${assignment.aid}}"
+           th:object="${submit}" method="post"
+           role="form">
+        <h2>Submit Form</h2>
+        <table border="0" cellpadding="10">
+
+
+            <tr>
+                <td><input type="text" th:field="*{link}" placeholder="Link"> <label
+                        th:if="${#fields.hasErrors('link')}" th:errors="*{link}"></label></td>
+            </tr>
+
+            <tr>
+                <td> <input type="text" th:field="*{comment}" placeholder="Comment"> <label
+                        th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}"></label></td>
+            </tr>
+
+            <tr>
+                <td><button type="submit">Submit solution</button></td>
+            </tr>
+        </table>
+    </form>
+
+
+    <tr sec:authorize="hasAnyAuthority('ADMIN','STUDENT')">
+        <form th:action="@{'/submit/index/'+ ${assignment.aid}}" method="get">
+            <button type="Submit">View all submits</button>
+        </form>
+    </tr>
+
+</table>
+
+</body>
+</html>
